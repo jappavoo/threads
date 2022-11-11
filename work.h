@@ -1,12 +1,15 @@
 #ifndef __WORK_H__
 #define __WORK_H__
 
-#include <stdint.h>
-#include "now.h"
 
 #define WORK_NOPLOOP_COUNT 40000
 
-extern uint64_t WorkTSC;
+union WorkTime {
+  uint64_t  TSC;
+  char padding[CACHE_LINE_SIZE];
+};
+
+extern union WorkTime WorkTSC;
 
 inline  __attribute__((always_inline)) int 
 Work_NOPLOOP()
@@ -32,9 +35,7 @@ inline  __attribute__((always_inline)) int
 Work_NULLLOOP()
 {
   int i;
-  for (i=0; i<(WORK_NOPLOOP_COUNT/4); i++) {
-    asm("nop;nop;nop;nop");
-  }
+  for (i=0; i<(WORK_NOPLOOP_COUNT); i++) {}
   return i;
 }
 
@@ -45,7 +46,7 @@ inline  __attribute__((always_inline)) int doWork()
   wstart = now();
   rc = WORK();
   wend = now();
-  WorkTSC += (wend - wstart);
+  WorkTSC.TSC += (wend - wstart);
 }
   
 #endif

@@ -2,24 +2,20 @@
 #define __REMOTE_H__
 
 
-// getconf LEVEL1_DCACHE_LINESIZE
-#define CACHE_LINE_SIZE 64
 #define Q_LEN 1
 
 const int CLIENT = 0;
-const int CLIENT_REQ_BASE = 0;
 const int SERVER = 1;
-const int SERVER_REPLY_BASE = 100;
 
 // Each message is one cache line
 union Message {
-  char padding[CACHE_LINE_SIZE];
   struct Request {
     volatile int arg;
   } req;
   struct Reply {
     volatile int arg;
   } reply;
+  char padding[CACHE_LINE_SIZE];
 };
 
 #ifdef REMOTE_READ_SHARED
@@ -27,7 +23,7 @@ union Message {
 // Qinfo is one cache line that is an message index
 union QInfo{
   volatile int idx;
-  char raw [CACHE_LINE_SIZE];
+  char padding[CACHE_LINE_SIZE];
 };
 
 // Queue of messages index indicates next free message
@@ -46,29 +42,28 @@ struct MessageQ {
    .info.idx = MSG_NUM_START				
   };
 
-static void * client (void *arg)
+static inline void clientAction ()
 {
-  uint64_t count = (uint64_t) arg;
-  union QInfo __attribute__ ((aligned (CACHE_LINE_SIZE))) reqQinfo =
+  // local copy of request queue info
+  static union QInfo __attribute__ ((aligned (CACHE_LINE_SIZE))) replyQinfo =
     {
      .idx = MSG_NUM_START
     };
-  union QInfo __attribute__ ((aligned (CACHE_LINE_SIZE))) replyQinfo =
-    {
-     .idx = MSG_NUM_START
-    };
-  int myVal = CLIENT_REQ_BASE;
 
-  while (count) {
-    // send request (copy volatile to nonvolatile local)
-    //  we are single write so we know they will stay insync
-    int curIdx = reqQ.info.idx;
-    // add message data to queue
-    reqQ.messages[curIdx%Q_LEN].req.arg = myVal;
+    // Add request to queue (copy volatile to nonvolatile local)
+    //  we are single writer so we know they will stay insync
+    // Eg. int curIdx = reqQ.info.idx;
+    //     reqQ.messages[curIdx%Q_LEN].req.arg = SomeValue;
+  
     // publish message
     __sync_fetch_and_add(&(reqQ.info.idx),1);
 
-    // spin for reply
+#ifdef LOCAL_WORK_WITH_REMOTE
+    doWork();
+#endif
+    
+    // spin for reply -- wait for until global version changes
+    // compared to local verison
     while (replyQ.info.idx == replyQinfo.idx) {}
     // process reply
 #ifndef SILENT
@@ -76,47 +71,39 @@ static void * client (void *arg)
 #endif
     // we assume here only one reply added at a time!
     //   eg. no more writes to shared idx so we can make a nonvolatile copy
+    // copy global into local
     replyQinfo.idx = replyQ.info.idx;
-    assert(replyQ.messages[replyQinfo.idx%Q_LEN].reply.arg == (SERVER_REPLY_BASE + myVal));
-    myVal++;
-    count--;
-  }
-  uint64_t end = now();
-  printResult(count, start, end);
-  return NULL;
+
+    return NULL;
 }
   
-static void * server (void *arg)
+static inline void serverAction ()
 {
-  union QInfo __attribute__ ((aligned (CACHE_LINE_SIZE))) reqQinfo =
+  static union QInfo __attribute__ ((aligned (CACHE_LINE_SIZE))) reqQinfo =
     {
-     .idx = MSG_NUM_START
+      .idx = MSG_NUM_START
     };
   
-  int myVal = SERVER_REPLY_BASE;
-  while (1) {
-    // spin for request
-    while (reqQ.info.idx == reqQinfo.idx) {}
-    // we know things have changed
-    // assume single request enqueued so we can safely make a nonvolatile copy
-    reqQinfo.idx = reqQ.info.idx;
+  // spin for request
+  while (reqQ.info.idx == reqQinfo.idx) {}
+  // we know things have changed
+  // assume single request enqueued so we can safely make a nonvolatile copy
+  reqQinfo.idx = reqQ.info.idx;
 #ifndef SILENT
-    (void) !write(1, "Server has the request\n",23);
+  (void) !write(1, "Server has the request\n",23);
 #endif
-    // process one message at a time 
-    // doServerwork();
-    assert(reqQ.messages[reqQinfo.idx%Q_LEN].req.arg == CLIENT_REQ_BASE + (myVal - SERVER_REPLY_BASE));
+  // process one message at a time
+#ifdef REMOTE_WORK
+  doWork();
+#endif    
+  
+  // we are single writer so we can make nonvolatile copy
+  int curIdx = replyQ.info.idx;
+  // add message data to queue
+  // eg. replyQ.messages[curIdx%Q_LEN].req.arg = myVal;
+  // publish message
+  __sync_fetch_and_add(&(replyQ.info.idx),1);
 
-    // we are single writer so we can make nonvolatile copy
-    int curIdx = replyQ.info.idx;
-    // add message data to queue
-    replyQ.messages[curIdx%Q_LEN].req.arg = myVal;
-    // publish message
-    __sync_fetch_and_add(&(replyQ.info.idx),1);
-
-    myVal++;
-  }
-  return NULL;
 }
 
 #elif REMOTE_RW_SHARED

@@ -13,16 +13,24 @@ CFLAGS := -g -march=$(CPUTYPE) -O$(O)
 %.s: %.c
 	gcc ${CFLAGS}  -S  $<
 
-all: bm.NOPLOOP_LOCAL_WORK
+all: bm.NOPLOOP_LOCAL_WORK bm.NOPLOOP_LOCAL_WORK_NO_SERVERTHREAD bm.NULLLOOP_LOCAL_WORK bm.NULLLOOP_LOCAL_WORK_NO_SERVERTHREAD
 
-bm.NOPLOOP_LOCAL_WORK: main.NOPLOOP_LOCAL_WORK.o work.o
-	gcc ${CFLAGS} -DWORK=Work_NOPLOOP -DLOCAL_WORK $^ -o $@
+bm.NOPLOOP_LOCAL_WORK: DEFINES=-DWORK=Work_NOPLOOP -DLOCAL_WORK
+bm.NOPLOOP_LOCAL_WORK: main.c work.h now.h remote.h
+	gcc ${CFLAGS}  ${DEFINES} $< -o $@ -lpthread
 
-work.o: work.c work.h now.h remote.h
-	gcc ${CFLAGS} -c $<
+bm.NOPLOOP_LOCAL_WORK_NO_SERVERTHREAD: DEFINES=-DWORK=Work_NOPLOOP -DLOCAL_WORK -DNO_SERVER_THREAD
+bm.NOPLOOP_LOCAL_WORK_NO_SERVERTHREAD: main.c work.h now.h remote.h
+	gcc ${CFLAGS}  ${DEFINES} $< -o $@ -lpthread
 
-main.NOPLOOP_LOCAL_WORK.o: main.c work.h now.h remote.h
-	gcc ${CFLAGS} -c -DWORK=Work_NOPLOOP -DLOCAL_WORK $< -o $@
+bm.NULLLOOP_LOCAL_WORK: DEFINES=-DWORK=Work_NULLLOOP -DLOCAL_WORK
+bm.NULLLOOP_LOCAL_WORK: main.c work.h now.h remote.h
+	gcc ${CFLAGS}  ${DEFINES} $< -o $@ -lpthread
+
+bm.NULLLOOP_LOCAL_WORK_NO_SERVERTHREAD: DEFINES=-DWORK=Work_NULLLOOP -DLOCAL_WORK -DNO_SERVER_THREAD
+bm.NULLLOOP_LOCAL_WORK_NO_SERVERTHREAD: main.c work.h now.h remote.h
+	gcc ${CFLAGS}  ${DEFINES} $< -o $@ -lpthread
+
 
 
 threads.o: threads.s

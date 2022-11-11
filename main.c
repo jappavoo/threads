@@ -4,12 +4,20 @@
 #include <inttypes.h>
 #include <sched.h>
 #include <err.h>
+#include <pthread.h>
+#include <stdint.h>
 
-#include "work.h"
+#include "cacheline.h"
 #include "now.h"
+#include "work.h"
+#include "remote.h"
+
+union WorkTime WorkTSC = {
+  .TSC = 0
+};
 
 #define USAGE "%s <iterations> <cpu0> <cpu1>\n"
-#define VERBOSE
+// #define VERBOSE
 
 int pinCpu(int cpu)
 {
@@ -37,6 +45,37 @@ int pinCpu(int cpu)
 inline void preWork() {}
 inline void postWork() {}
 
+union ServerThreadArg {
+  char padding[CACHE_LINE_SIZE];
+  struct {
+    volatile uint64_t ready;
+    int cpu;
+  };
+};
+
+void * serverThread(void *arg) {
+  union ServerThreadArg *sarg = arg;
+  pinCpu(sarg->cpu);
+
+  __sync_fetch_and_add(&(sarg->ready),1);
+
+  while (1) {
+#ifndef LOCAL_WORK
+    serverAction();
+#endif    
+  }
+  return NULL;
+}
+
+pthread_t 
+startServerThread(int cpu) {  
+  pthread_t serverTid;
+  union ServerThreadArg sarg = { .ready = 0, .cpu = cpu };
+  pthread_create(&serverTid, NULL, serverThread, &sarg);
+  while (sarg.ready==0) {}
+  return serverTid;
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -55,14 +94,20 @@ main(int argc, char *argv[])
   cpu1 = atoi(argv[3]);
 
   pinCpu(cpu0);
+
+#ifndef NO_SERVER_THREAD
+  // start server thread on the right core and barrier until
+  // it is running
+  startServerThread(cpu1);
+#endif
   
   startTSC = now();
   while (iters) {
     preWork();
 #ifdef LOCAL_WORK
     doWork();
-#elif LOCAL_WORK_WITH_REMOTE
-#elif REMOTE_WORK
+#else
+    clientAction();
 #endif
     postWork();    
     iters--;
@@ -70,6 +115,6 @@ main(int argc, char *argv[])
   endTSC = now();
 
   totalTSC = endTSC - startTSC;
-  fprintf(stderr, "%" PRIu64 " %" PRIu64 "\n", totalTSC, WorkTSC);
+  fprintf(stderr, "%" PRIu64 " %" PRIu64 "\n", totalTSC, WorkTSC.TSC);
   return 0;
 }  
