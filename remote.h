@@ -1,8 +1,11 @@
 #ifndef __REMOTE_H__
 #define __REMOTE_H__
 
+#include <unistd.h>
+
 
 #define Q_LEN 1
+#define MSG_NUM_START 0
 
 const int CLIENT = 0;
 const int SERVER = 1;
@@ -73,8 +76,6 @@ static inline void clientAction ()
     //   eg. no more writes to shared idx so we can make a nonvolatile copy
     // copy global into local
     replyQinfo.idx = replyQ.info.idx;
-
-    return NULL;
 }
   
 static inline void serverAction ()
@@ -114,38 +115,30 @@ union SharedLine {
   volatile int theBall;
 } __attribute__ ((aligned (CACHE_LINE_SIZE))) shared = { .theBall = CLIENT };
 
-void * client (void *arg)
+void clientAction ()
 {
-  int myVal = CLIENT_REQ_BASE;
 
-  while (1) {
-    while (shared.theBall != CLIENT); {}
+  while (shared.theBall != CLIENT) {}
 #ifndef SILENT
     (void) !write(1, "Client has the ball\n",20);
 #endif
-    assert(reply.reply.arg == (SERVER_REPLY_BASE + myVal));
-    req.req.arg = myVal;
     __sync_bool_compare_and_swap(&shared.theBall, CLIENT, SERVER);
-    myVal++;
-  }
-  return NULL;
+#ifdef LOCAL_WORK_WITH_REMOTE
+    doWork();
+#endif
 }
 
-void * server (void *arg)
-{
-  int myVal = SERVER_REPLY_BASE;
 
-  while (1) {
-    while (shared.theBall != SERVER);
+void serverAction ()
+{
+  while (shared.theBall != SERVER) {}
 #ifndef SILENT
-    (void) !write(1, "Server has the ball\n",20);
+  (void) !write(1, "Server has the ball\n",20);
 #endif
-    assert(req.req.arg == CLIENT_REQ_BASE + (myVal - SERVER_REPLY_BASE));
-    myVal++;
-    reply.reply.arg = myVal;
-    __sync_bool_compare_and_swap(&shared.theBall, SERVER, CLIENT);
-  }
-  return NULL;
+#ifdef REMOTE_WORK
+  doWork();
+#endif    
+  __sync_bool_compare_and_swap(&shared.theBall, SERVER, CLIENT);
 }
 
 #endif

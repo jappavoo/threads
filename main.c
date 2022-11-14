@@ -100,6 +100,8 @@ main(int argc, char *argv[])
   // it is running
   startServerThread(cpu1);
 #endif
+
+  workSetup();
   
   startTSC = now();
   while (iters) {
@@ -116,5 +118,6 @@ main(int argc, char *argv[])
 
   totalTSC = endTSC - startTSC;
   fprintf(stderr, "%" PRIu64 " %" PRIu64 "\n", totalTSC, WorkTSC.TSC);
+  workCleanup();
   return 0;
 }  
