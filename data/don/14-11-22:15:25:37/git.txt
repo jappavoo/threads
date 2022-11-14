@@ -1,0 +1,83 @@
+commit 6c345ab18de7f9c147e0fa9c7d8ceaae1f94f5b8
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:25:22 2022 -0500
+
+    mkdata update
+
+commit 8b95d82c3a306473a77ffcd57bd55b6fc55f25d3
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:23:43 2022 -0500
+
+    mkdata update
+
+commit f1bebc23bbb136dc99eabb69b332af4195a705ec
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:22:24 2022 -0500
+
+    fix header
+
+commit 7aea84aae631e0d37a377e39e63cae508f442499
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 13:07:31 2022 -0500
+
+    pre data run
+
+commit e27a351279a11ee28fd11a5df90faa6e01a95d4d
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Fri Nov 11 16:45:11 2022 -0500
+
+    on my way
+
+commit 204fb85b1ea3fd70c1b4946910b85dc5e10808d7
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 23:05:27 2022 -0500
+
+    add bm* to gitignore
+
+commit 03e9f272b4d518c9daa37f54c211f18af92e9c33
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 23:03:55 2022 -0500
+
+    fix make targets
+
+commit 8515f39201a87206dfde7a915bf469c9b8194b3e
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:56:39 2022 -0500
+
+    small midway cleanup
+
+commit 35e43dc4831052d4f2b0f7568928d18692bf722b
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:52:34 2022 -0500
+
+    add remote.h
+
+commit ec47631a7e8fdd56925ee5d321671ef50bb9e45e
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:29:33 2022 -0500
+
+    reworking into a benchmark
+
+commit 91e04915f11caa1e498d21d00baf39743e9878cd
+Author: Ke Li <likelike101101@gmail.com>
+Date:   Wed Nov 9 15:37:12 2022 -0500
+
+    Fixed spinning bug, add unslients to all target
+
+commit fa151626a79fb0393411cd17d5c0ad41066c4773
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Thu Nov 10 01:17:51 2022 +0000
+
+    removed 4
+
+commit 8db3e036bf0b6be50190397c46a83940f9328bc7
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 8 22:03:16 2022 +0000
+
+    turing into base line data benchmark
+
+commit 229e1dbd52e2ae8d9f9c5d69059f550219e0b163
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 8 03:58:37 2022 +0000
+
+    first commit
