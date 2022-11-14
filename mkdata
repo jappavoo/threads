@@ -1,19 +1,51 @@
 #!/bin/bash
 #set -x
+
+#cpu0s=${cpu0s:-"3 7"}
+#cpu1s=${cpu1s:-"17 46"}
+
+cpu0s=${cpu0s:-"3"}
+cpu1s=${cpu1s:-"46"}
+
+trials=${trial:-3}
+
 cstart=${cstart:-100}
-cend=${cend:-10000000000}
-cinc=${cinc:-10}
+cend=${cend:-800}
+cinc=${cinc:-2}
 
-pgms=${pgms:-"./threads2Silent"}
-cases=${cases:-"1 2 3"}
 
-for c in $cases;
+name=$1
+
+if [[ -z $name ]]; then
+    echo "ERROR: must specific a name for this data"
+    exit -1
+fi
+
+
+TS=$(date +%d-%m-%y:%H:%M:%S)
+datadir=data/$name/$TS
+mkdir -p $datadir
+
+(git log) >${datadir}/git.txt 2>&1
+(make clean; make) >${datadir}/build.txt 2>&1
+(ls -l) >${datadir}/ls.txt 2>&1
+pgms=${pgms:-./bm.*}
+
+cat /proc/cpuinfo > $datadir/cpuinfo.txt
+ifconfig > $datadir/ifconfig.txt
+
+
+for pgm in $pgms;
 do
-    for pgm in $pgms;
-    do
-	echo "count time" > ${pgm}_$c.times
-	for ((i=cstart; i<cend; i=i*cinc)); do
-	     $pgm $i $c
-	done 2>> ${pgm}_$c.times
+    for cpu0 in $cpu0s; do
+	for cpu1 in $cpu1s; do
+	    for ((i=cstart; i<cend; i=i*cinc)); do
+		datafile=${datadir}/${pgm}_${i}_${cpu0}_${cpu1}.times
+		echo "pgm,count,ctime,wtime,cpu0,cpu1" > $datafile
+		for ((t=0; t<$trials; t++)); do
+		    $pgm $i $cpu0 $cpu1 >> $datafile 2>&1 
+		done 
+	    done
+	done
     done
 done
