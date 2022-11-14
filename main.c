@@ -80,6 +80,7 @@ int
 main(int argc, char *argv[])
 {
 
+  int count;
   register int iters;
   int cpu0, cpu1;
   uint64_t startTSC, endTSC, totalTSC;
@@ -90,6 +91,7 @@ main(int argc, char *argv[])
   }
   
   iters = atoi(argv[1]);
+  count = iters;
   cpu0 = atoi(argv[2]);
   cpu1 = atoi(argv[3]);
 
@@ -117,7 +119,8 @@ main(int argc, char *argv[])
   endTSC = now();
 
   totalTSC = endTSC - startTSC;
-  fprintf(stderr, "%" PRIu64 " %" PRIu64 "\n", totalTSC, WorkTSC.TSC);
+  fprintf(stderr, "%s,%d,%" PRIu64 ",%" PRIu64 ",%d,%d\n",
+	  argv[0],count,totalTSC, WorkTSC.TSC, cpu0, cpu1);
   workCleanup();
   return 0;
 }  
