@@ -1,13 +1,13 @@
 #!/bin/bash
 #set -x
-
+#DRY_RUN=1
 cpu0s=${cpu0s:-"3 7"}
 cpu1s=${cpu1s:-"17 46"}
 
 trials=${trial:-10}
 
 cstart=${cstart:-100}
-cend=${cend:-80000}
+cend=${cend:-200000}
 cinc=${cinc:-2}
 
 
@@ -27,6 +27,7 @@ mkdir -p $datadir
 (make clean; make) >${datadir}/build.txt 2>&1
 (ls -l) >${datadir}/ls.txt 2>&1
 pgms=${pgms:-./bm.*}
+tar -zcf ${datadir}/pgms.tgz $pgms
 
 sudo bpftrace -e 'BEGIN { printf("%u\n", *kaddr("tsc_khz")); exit(); }' > $datadir/tsc.txt
 cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq > $datadir/max_freq.txt
@@ -42,7 +43,11 @@ do
 		datafile=${datadir}/${pgm}_${i}_${cpu0}_${cpu1}.times
 		echo "pgm,count,ctime,wtime,cpu0,cpu1" > $datafile
 		for ((t=0; t<$trials; t++)); do
-		    $pgm $i $cpu0 $cpu1 >> $datafile 2>&1 
+		    if [[ -n $DRY_RUN ]]; then
+			echo "$pgm $i $cpu0 $cpu1 >> $datafile 2>&1"
+		    else
+			$pgm $i $cpu0 $cpu1 >> $datafile 2>&1
+		    fi
 		done 
 	    done
 	done
