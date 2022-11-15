@@ -28,6 +28,8 @@ mkdir -p $datadir
 (ls -l) >${datadir}/ls.txt 2>&1
 pgms=${pgms:-./bm.*}
 
+sudo bpftrace -e 'BEGIN { printf("%u\n", *kaddr("tsc_khz")); exit(); }' > $datadir/tsc.txt
+cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq > $datadir/max_freq.txt
 cat /proc/cpuinfo > $datadir/cpuinfo.txt
 ifconfig > $datadir/ifconfig.txt
 
