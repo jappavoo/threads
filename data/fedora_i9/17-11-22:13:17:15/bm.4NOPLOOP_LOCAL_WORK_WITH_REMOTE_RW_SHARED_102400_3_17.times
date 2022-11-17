@@ -1,0 +1,11 @@
+pgm,count,ctime,wtime,cpu0,cpu1
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
+bm.4NOPLOOP_LOCAL_WORK_WITH_REMOTE_RW_SHARED: could not pin to cpu=17: Invalid argument
