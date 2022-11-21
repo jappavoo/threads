@@ -1,0 +1,11 @@
+pgm,count,ctime,wtime,cpu0,cpu1
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument
+bm.NOPLOOP_REMOTE_WORK_READ_SHARED: could not pin to cpu=46: Invalid argument

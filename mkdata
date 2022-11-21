@@ -1,7 +1,8 @@
 #!/bin/bash
 #set -x
 #DRY_RUN=1
-cpu0s=${cpu0s:-"3 7"}
+#cpu0s=${cpu0s:-"3 7"}
+cpu0s=${cpu0s:-"3 5"}
 cpu1s=${cpu1s:-"17 46"}
 
 trials=${trial:-10}
