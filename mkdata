@@ -34,7 +34,14 @@ sudo bpftrace -e 'BEGIN { printf("%u\n", *kaddr("tsc_khz")); exit(); }' > $datad
 cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq > $datadir/max_freq.txt
 cat /proc/cpuinfo > $datadir/cpuinfo.txt
 ifconfig > $datadir/ifconfig.txt
+cp /proc/cmdline $datadir/cmdline.txt
+sudo cp -r /sys/devices/system/cpu $datadir/sys-devices-system-cpu 2> /dev/null
+sudo tar -czf $datadir/sys-devices-system-cpu.tgz $datadir/sys-devices-system-cpu
+sudo rm -rf $datadir/sys-devices-system-cpu
 
+for cpu in $cpu0s $cpu1s; do
+    ./calibrate 1 $cpu 10 > $datadir/calibrate_${cpu}.txt 2>&1
+done
 
 for pgm in $pgms;
 do
