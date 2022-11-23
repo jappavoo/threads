@@ -1,0 +1,195 @@
+commit 8e5e9b4eb9236a77f910c288dca463a610e86a97
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 23 16:33:28 2022 -0500
+
+    added TSC calibration program
+
+commit fedadf16a927bb6c76e502636423294516d13aa6
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 23 21:31:31 2022 +0000
+
+    changed time values to be nanoseconds
+
+commit 2d77a0bbbf98365b9de85b2d807fd73accb2ed31
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 23:36:45 2022 +0000
+
+    added rw sharing graph
+
+commit 73dfa0612a1e92963abfe6242344d0a6da209a1e
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 23:35:14 2022 +0000
+
+    added fedora_i9 data and new don data with first cut at graphs
+
+commit 1cc92155960249c646b9c04f1933e55dee3dd7e8
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 22:56:08 2022 +0000
+
+    remove checkpoint
+
+commit fa1fcd9c23de46f2804d0816f807bd8bec0aec42
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 22:54:52 2022 +0000
+
+    fuck you
+
+commit 6ad53e65e6d11bb7119ffaf4417d1dca7470883b
+Author: FlareCoding <albert.slepak@gmail.com>
+Date:   Mon Nov 21 17:44:23 2022 -0500
+
+    re-added data files
+
+commit b864d4a0f56d0ae928182dd13a5728aa7806a0a8
+Author: FlareCoding <albert.slepak@gmail.com>
+Date:   Thu Nov 17 14:06:43 2022 -0500
+
+    added correct baremetal data
+
+commit f7fe22d8c65a8057ccedabb9d9e861cbda3c1daf
+Author: FlareCoding <albert.slepak@gmail.com>
+Date:   Thu Nov 17 13:28:00 2022 -0500
+
+    added baremetal data from fedora_i9 laptop
+
+commit 583d685b153c96452549fde37cf17730b010be64
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 22:52:36 2022 +0000
+
+    update pre alberts data
+
+commit 10bcaad1a0d2c09f7aceab95550972ecb57675e1
+Author: Albert Slepak <41020147+FlareCoding@users.noreply.github.com>
+Date:   Mon Nov 21 16:56:38 2022 -0500
+
+    added baremetal data from fedora_i9 laptop (#2)
+    
+    * added baremetal data from fedora_i9 laptop
+    
+    * added correct baremetal data
+
+commit cc512505d995554f1b78890a9208d8e474b6ed6b
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 21 16:50:31 2022 -0500
+
+    new: data on different cores
+
+commit b0dab6fb55992a0c4030ff8a1d7c11fae718e553
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 15 18:19:30 2022 -0500
+
+    oops forgot the data files
+
+commit ad53cb9c9f3ea088e44b091965388e041f104b13
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 15 18:09:05 2022 -0500
+
+    new data and added one more size
+
+commit 7180950a5789ad9c5d1087c5bd3642fe21b1f4bb
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 15 21:49:56 2022 +0000
+
+    first cut at data wrangling
+
+commit 9efa3e9cffe9882e11f919d194b4e8cb6909eac9
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 23:16:43 2022 +0000
+
+    start of plotting
+
+commit 48399960b44bcd484f4f5c9f1e983be978f4d197
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:40:27 2022 -0500
+
+    the data
+
+commit 0446ccc0430614a60c32af345b648993eb1b9b49
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:39:02 2022 -0500
+
+    first don data
+
+commit 6c345ab18de7f9c147e0fa9c7d8ceaae1f94f5b8
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:25:22 2022 -0500
+
+    mkdata update
+
+commit 8b95d82c3a306473a77ffcd57bd55b6fc55f25d3
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:23:43 2022 -0500
+
+    mkdata update
+
+commit f1bebc23bbb136dc99eabb69b332af4195a705ec
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 15:22:24 2022 -0500
+
+    fix header
+
+commit 7aea84aae631e0d37a377e39e63cae508f442499
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Mon Nov 14 13:07:31 2022 -0500
+
+    pre data run
+
+commit e27a351279a11ee28fd11a5df90faa6e01a95d4d
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Fri Nov 11 16:45:11 2022 -0500
+
+    on my way
+
+commit 204fb85b1ea3fd70c1b4946910b85dc5e10808d7
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 23:05:27 2022 -0500
+
+    add bm* to gitignore
+
+commit 03e9f272b4d518c9daa37f54c211f18af92e9c33
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 23:03:55 2022 -0500
+
+    fix make targets
+
+commit 8515f39201a87206dfde7a915bf469c9b8194b3e
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:56:39 2022 -0500
+
+    small midway cleanup
+
+commit 35e43dc4831052d4f2b0f7568928d18692bf722b
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:52:34 2022 -0500
+
+    add remote.h
+
+commit ec47631a7e8fdd56925ee5d321671ef50bb9e45e
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Wed Nov 9 22:29:33 2022 -0500
+
+    reworking into a benchmark
+
+commit 91e04915f11caa1e498d21d00baf39743e9878cd
+Author: Ke Li <likelike101101@gmail.com>
+Date:   Wed Nov 9 15:37:12 2022 -0500
+
+    Fixed spinning bug, add unslients to all target
+
+commit fa151626a79fb0393411cd17d5c0ad41066c4773
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Thu Nov 10 01:17:51 2022 +0000
+
+    removed 4
+
+commit 8db3e036bf0b6be50190397c46a83940f9328bc7
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 8 22:03:16 2022 +0000
+
+    turing into base line data benchmark
+
+commit 229e1dbd52e2ae8d9f9c5d69059f550219e0b163
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Tue Nov 8 03:58:37 2022 +0000
+
+    first commit

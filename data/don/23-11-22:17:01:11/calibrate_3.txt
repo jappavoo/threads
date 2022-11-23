@@ -1,0 +1,12 @@
+PINNED TO CPU: 3
+pgm,i,seconds,tsc,cpu,rem.sec,rem.nsec
+./calibrate,0,1,2600140952,3,0,0
+./calibrate,1,1,2600131956,3,0,0
+./calibrate,2,1,2600131496,3,0,0
+./calibrate,3,1,2600133312,3,0,0
+./calibrate,4,1,2600131800,3,0,0
+./calibrate,5,1,2600131056,3,0,0
+./calibrate,6,1,2600131684,3,0,0
+./calibrate,7,1,2600133588,3,0,0
+./calibrate,8,1,2600131464,3,0,0
+./calibrate,9,1,2600131320,3,0,0
